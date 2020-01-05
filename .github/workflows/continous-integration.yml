@@ -23,5 +23,9 @@ jobs:
       - name: Test
         run: poetry run pytest
       - name: report
-        if: success()
-        run: codecov -t 27674728-e4b8-4fd2-9724-9469862a5ad5
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ 27674728-e4b8-4fd2-9724-9469862a5ad5 }}
+          file: ./cov.xml
+          name: codecov-umbrella
+          fail_ci_if_error: true

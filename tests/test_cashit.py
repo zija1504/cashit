@@ -1,13 +1,8 @@
-from cashit import __version__
+from cashit.cli import cli
+from click.testing import CliRunner
 
 
-def test_version():
-    assert __version__ == "0.1.0"
-
-
-test = [
-    "allsadsadsadasdsadasdasdadasdasd",
-    "asdsadasdassadadsdadasd",
-    "asdasdasd",
-    "sa",
-]
+def test_cli():
+    runner = CliRunner()
+    result = runner.invoke(cli)
+    assert result.exit_code == 0

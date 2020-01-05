@@ -25,7 +25,7 @@ jobs:
       - name: report
         uses: codecov/codecov-action@v1
         with:
-          token: ${{ 27674728-e4b8-4fd2-9724-9469862a5ad5 }}
+          token: ${{ secrets.CODECOV_TOKEN }}
           file: ./cov.xml
           name: codecov-umbrella
           fail_ci_if_error: true

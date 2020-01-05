@@ -18,7 +18,7 @@ jobs:
           poetry install
       - name: Lint
         run: |
-          pre-commit install-hooks
-          pre-commit run --all-files
+          poetry run pre-commit install-hooks
+          poetry run pre-commit run --all-files
       - name: Test
-        run: pytest
+        run: poetry run pytest

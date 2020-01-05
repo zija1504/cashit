@@ -22,3 +22,6 @@ jobs:
           poetry run pre-commit run --all-files
       - name: Test
         run: poetry run pytest
+      - name: report
+        if: success()
+        run: codecov -t 27674728-e4b8-4fd2-9724-9469862a5ad5

@@ -1,5 +1,5 @@
 import click
-from .addExpanse.expanse import add_expenses
+from .addExpense.expanse import add_expenses
 from .utils import create_database, create_new_category
 
 

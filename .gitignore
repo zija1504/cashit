@@ -131,3 +131,7 @@ dmypy.json
 # vscode config
 .vscode/
 pyrightconfig.json
+typings/
+src/item.db
+src/20200102_1.txt
+tags

@@ -8,6 +8,8 @@ authors = ["Zija <zija1504@gmail.com>"]
 python = "^3.8"
 click = "^7.0"
 colorama = "^0.4.3"
+inquirer = "^2.6.3"
+peewee = "^3.13.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

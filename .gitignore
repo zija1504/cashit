@@ -135,3 +135,5 @@ typings/
 src/item.db
 src/20200102_1.txt
 tags
+src/cashit/data/20200102_1.txt
+src/cashit/data/database.db

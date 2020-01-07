@@ -1,4 +1,4 @@
-from enum import unique
+from cashit.settings import SQL_PATH
 from peewee import (
     ForeignKeyField,
     SqliteDatabase,
@@ -9,7 +9,7 @@ from peewee import (
 )
 import json
 
-database: database = SqliteDatabase("item.db")
+database: database = SqliteDatabase(SQL_PATH)
 
 
 # model definitions -- the standard "pattern" is to define a base model class
@@ -21,14 +21,14 @@ class BaseModel(Model):
 
 
 class Category(BaseModel):
-    name = CharField(unique=True)
+    name = CharField(unique=True, null=False)
 
     def __str__(self):
         return self.name
 
 
 class Item(BaseModel):
-    name = CharField()
-    price = FloatField()
-    date = DateField()
+    name = CharField(null=False)
+    price = FloatField(null=False)
+    date = DateField(null=False)
     category = ForeignKeyField(Category, field=Category.name, backref="items")

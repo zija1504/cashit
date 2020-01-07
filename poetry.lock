@@ -192,6 +192,20 @@ python-editor = "1.0.4"
 readchar = "2.0.1"
 
 [[package]]
+category = "main"
+description = "A lightweight library for converting complex datatypes to and from native Python datatypes."
+name = "marshmallow"
+optional = false
+python-versions = ">=3.5"
+version = "3.3.0"
+
+[package.extras]
+dev = ["pytest", "pytz", "simplejson", "mypy (0.750)", "flake8 (3.7.9)", "flake8-bugbear (19.8.0)", "pre-commit (>=1.20,<2.0)", "tox"]
+docs = ["sphinx (2.2.2)", "sphinx-issues (1.2.0)", "alabaster (0.7.12)", "sphinx-version-warning (1.1.2)"]
+lint = ["mypy (0.750)", "flake8 (3.7.9)", "flake8-bugbear (19.8.0)", "pre-commit (>=1.20,<2.0)"]
+tests = ["pytest", "pytz", "simplejson"]
+
+[[package]]
 category = "dev"
 description = "McCabe checker, plugin for flake8"
 name = "mccabe"
@@ -491,7 +505,7 @@ python-versions = "*"
 version = "0.1.8"
 
 [metadata]
-content-hash = "fe12af49b6ccaccb5127f4117ed00386bf064737a0c3519fb4114f54c0c339f4"
+content-hash = "11850aff9b4b866c64c04fa543abf501641348d1b81b969ddf7f60874192a3b0"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -596,6 +610,10 @@ idna = [
 inquirer = [
     {file = "inquirer-2.6.3-py2.py3-none-any.whl", hash = "sha256:c77fd8c3c053e1b4aa7ac1e0300cbdec5fe887e144d7bdb40f9f97f96a0eb909"},
     {file = "inquirer-2.6.3.tar.gz", hash = "sha256:5f6e5dcbc881f43554b6fdfea245e417c6ed05c930cdb6e09b5df7357c288e06"},
+]
+marshmallow = [
+    {file = "marshmallow-3.3.0-py2.py3-none-any.whl", hash = "sha256:3e53dd9e9358977a3929e45cdbe4a671f9eff53a7d6a23f33ed3eab8c1890d8f"},
+    {file = "marshmallow-3.3.0.tar.gz", hash = "sha256:0ba81b6da4ae69eb229b74b3c741ff13fe04fb899824377b1aff5aaa1a9fd46e"},
 ]
 mccabe = [
     {file = "mccabe-0.6.1-py2.py3-none-any.whl", hash = "sha256:ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42"},

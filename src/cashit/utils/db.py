@@ -6,7 +6,7 @@ from .schema import CategorySchema
 from marshmallow import ValidationError
 
 
-def create_database():
+def create_database(database=database):
     with database:
         database.create_tables([Category, Item])
 

@@ -35,16 +35,6 @@ def testdb():
     db.close()
 
 
-@pytest.fixture
-def category(testdb, monkeypatch):
-    category_name = StringIO("ogólne\n")
-    monkeypatch.setattr("sys.stdin", category_name)
-    create_new_category()
-    category_name = StringIO("spożywcze\n")
-    monkeypatch.setattr("sys.stdin", category_name)
-    create_new_category()
-
-
 items_list = [
     dict(name="woda", price=0.99, date="2020-02-01", category="ogólne"),
     dict(name="woda1", price=1.99, date="2020-02-02", category="spożywcze"),
@@ -78,12 +68,16 @@ def test_add_category(testdb, monkeypatch, capsys):
 
 
 def test_creating_tables():
-    database = db
-    create_database()
-    database.close()
+    create_database(db)
 
 
-def test_add_item_to_database(category):
+def test_add_item_to_database(monkeypatch, testdb):
+    category_name = StringIO("ogólne\n")
+    monkeypatch.setattr("sys.stdin", category_name)
+    create_new_category()
+    category_name = StringIO("spożywcze\n")
+    monkeypatch.setattr("sys.stdin", category_name)
+    create_new_category()
     add_item_to_database(**items_list[0])
     items_from_db = get_items_from_database()
     assert items_from_db[0].name == items_list[0]["name"]

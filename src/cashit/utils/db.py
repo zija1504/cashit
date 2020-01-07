@@ -25,7 +25,7 @@ def create_new_category():
         print(err.messages["name"][0])
 
 
-def add_item_to_database(**data_dict):
+def add_item_to_database(database=database, **data_dict):
     with database.atomic():
         item = Item.create(
             name=data_dict["name"],

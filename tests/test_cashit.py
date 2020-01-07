@@ -71,17 +71,17 @@ def test_creating_tables():
     create_database(db)
 
 
-def test_add_item_to_database(monkeypatch, testdb):
+def test_add_item_to_database(testdb, monkeypatch):
     category_name = StringIO("ogólne\n")
     monkeypatch.setattr("sys.stdin", category_name)
     create_new_category()
     category_name = StringIO("spożywcze\n")
     monkeypatch.setattr("sys.stdin", category_name)
     create_new_category()
-    add_item_to_database(**items_list[0])
+    add_item_to_database(db, **items_list[0])
     items_from_db = get_items_from_database()
     assert items_from_db[0].name == items_list[0]["name"]
-    add_item_to_database(**items_list[1])
+    add_item_to_database(db, **items_list[1])
     items_from_db = get_items_from_database()
     assert len(items_from_db) == 2
     assert items_from_db[0].name == items_list[0]["name"]

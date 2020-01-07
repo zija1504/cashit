@@ -83,12 +83,12 @@ def test_add_category(testdb, monkeypatch, capsys):
 #     database.close()
 
 
-# def test_add_item_to_database(category):
-#     add_item_to_database(**items_list[0])
-#     items_from_db = get_items_from_database()
-#     assert items_from_db[0].name == items_list[0]["name"]
-#     add_item_to_database(**items_list[1])
-#     items_from_db = get_items_from_database()
-#     assert len(items_from_db) == 2
-#     assert items_from_db[0].name == items_list[0]["name"]
-#     assert items_from_db[1].price == items_list[1]["price"]
+def test_add_item_to_database(category):
+    add_item_to_database(**items_list[0])
+    items_from_db = get_items_from_database()
+    assert items_from_db[0].name == items_list[0]["name"]
+    add_item_to_database(**items_list[1])
+    items_from_db = get_items_from_database()
+    assert len(items_from_db) == 2
+    assert items_from_db[0].name == items_list[0]["name"]
+    assert items_from_db[1].price == items_list[1]["price"]

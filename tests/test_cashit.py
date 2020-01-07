@@ -77,10 +77,10 @@ def test_add_category(testdb, monkeypatch, capsys):
     assert "Kategoria nie może być pusta" in captured.out
 
 
-# def test_creating_tables():
-#     database = db
-#     create_database()
-#     database.close()
+def test_creating_tables():
+    database = db
+    create_database()
+    database.close()
 
 
 def test_add_item_to_database(category):

@@ -6,7 +6,7 @@ from .db import get_categories_from_database, add_item_to_database, database
 from .schema import ItemSchema
 
 
-def add_expenses_from_file(file: TextIO):
+def add_expenses_from_file(database, file: TextIO):
     temporary_list = file.read().strip().split("\n")
     temporary_list = pre_processing(temporary_list)
     list_from_interface = interface_add_from_file(temporary_list)

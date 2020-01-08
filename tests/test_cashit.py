@@ -160,7 +160,7 @@ def test_postprocessing_(testdb, monkeypatch, createdb):
     assert len(items) == 2
 
 
-def test_successfully_add_expenses_from_file(testdb, tmpdir, monkeypatch):
+def test_successfully_add_expenses_from_file(testdb, createdb, tmpdir, monkeypatch):
     category_name = StringIO("chemiczne\n")
     monkeypatch.setattr("sys.stdin", category_name)
     create_new_category()
@@ -178,10 +178,10 @@ Mąka: 2,95
     """
     )
     monkeypatch.setattr(general, "interface_add_from_file", mocking_interface_success)
-    add_expenses_from_file(test)
+    add_expenses_from_file(createdb, test)
     items = get_items_from_database()
     assert len(items) == 3
     monkeypatch.setattr(general, "interface_add_from_file", mocking_interface_failure)
-    add_expenses_from_file(test)
+    add_expenses_from_file(createdb, test)
     items = get_items_from_database()
     assert len(items) == 3

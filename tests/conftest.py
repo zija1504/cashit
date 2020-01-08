@@ -41,3 +41,19 @@ def createdb():
 def preprocess():
     listSuccess = ["2020-01-02", "mleko: 2,34", "woda: 2.01", "woda: 2,01"]
     yield listSuccess
+
+
+def mocking_interface_success(tmpList):
+    return [
+        dict(name="Mleko UHT", price=6.27, date="2020-01-02", category="spożywcze"),
+        dict(name="KoncSilant", price=8.99, date="2020-01-02", category="chemiczne"),
+        dict(name="Mąka", price=2.95, date="2020-01-02", category="spożywcze"),
+    ]
+
+
+def mocking_interface_failure(tmpList):
+    return [
+        dict(name="Mleko UHT", price=6.27, date="2020-01-02", category="spożywcze"),
+        dict(name="KoncSilant", price=8.99, date="error", category="chemiczne"),
+        dict(name="Mąka", price="error", date="2020-01-02", category="spożywcze"),
+    ]

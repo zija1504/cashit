@@ -59,6 +59,6 @@ def edit_utils(temporaryList: List[Dict], items_to_edit: Dict, new_values: Dict)
     )
 
 
-def postprocessing(temporary_list: List[Dict]):
+def postprocessing(database, temporary_list: List[Dict]):
     for data_dict in temporary_list:
-        add_item_to_database(**data_dict)
+        add_item_to_database(database, **data_dict)

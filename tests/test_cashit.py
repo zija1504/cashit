@@ -148,14 +148,14 @@ def test_edit_utils():
     assert len(inputList) == 1
 
 
-def test_postprocessing_(testdb, monkeypatch):
+def test_postprocessing_(testdb, monkeypatch, createdb):
     category_name = StringIO("ogólne\n")
     monkeypatch.setattr("sys.stdin", category_name)
     create_new_category()
     category_name = StringIO("spożywcze\n")
     monkeypatch.setattr("sys.stdin", category_name)
     create_new_category()
-    postprocessing(items_list)
+    postprocessing(createdb, items_list)
     items = get_items_from_database()
     assert len(items) == 2
 

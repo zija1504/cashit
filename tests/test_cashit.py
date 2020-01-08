@@ -1,38 +1,25 @@
+from contextlib import contextmanager
 from io import StringIO
 import os
 
 from click.testing import CliRunner
-from peewee import SqliteDatabase
 import pytest
 
 from cashit.cli import cli
 from cashit.model import Category, Item
 from cashit.utils.db import (
-    get_categories_from_database,
-    create_new_category,
-    create_database,
     add_item_to_database,
+    create_database,
+    create_new_category,
+    get_categories_from_database,
     get_items_from_database,
 )
+from cashit.utils.fileProcessing import get_date, match_item_name_and_price
 
 
-MODELS = [Category, Item]
-# use an in-memory SQLite for tests.
-db = SqliteDatabase(":memory:")
-
-
-@pytest.fixture
-def testdb():
-    db.bind(MODELS, bind_refs=False, bind_backrefs=False)
-    db.connect()
-    db.create_tables(MODELS)
-    yield db
-    # Not strictly necessary since SQLite in-memory databases only live
-    # for the duration of the connection, and in the next step we close
-    # the connection...but a good practice all the same.
-    db.drop_tables(MODELS)
-    # Close connection to db.
-    db.close()
+@contextmanager
+def does_not_raise():
+    yield
 
 
 items_list = [
@@ -67,8 +54,8 @@ def test_add_category(testdb, monkeypatch, capsys):
     assert "Kategoria nie może być pusta" in captured.out
 
 
-def test_creating_tables():
-    create_database(db)
+def test_creating_tables(createdb):
+    create_database(createdb)
 
 
 def test_add_item_to_database(testdb, monkeypatch):
@@ -78,11 +65,38 @@ def test_add_item_to_database(testdb, monkeypatch):
     category_name = StringIO("spożywcze\n")
     monkeypatch.setattr("sys.stdin", category_name)
     create_new_category()
-    add_item_to_database(db, **items_list[0])
+    add_item_to_database(testdb, **items_list[0])
     items_from_db = get_items_from_database()
     assert items_from_db[0].name == items_list[0]["name"]
-    add_item_to_database(db, **items_list[1])
+    add_item_to_database(testdb, **items_list[1])
     items_from_db = get_items_from_database()
     assert len(items_from_db) == 2
     assert items_from_db[0].name == items_list[0]["name"]
     assert items_from_db[1].price == items_list[1]["price"]
+
+
+@pytest.mark.parametrize(
+    "input, expected", [(["2020-01-02"], "2020-01-02"), (["2020-10-20"], "2020-10-20")]
+)
+def test_get_date_success(input, expected):
+    assert get_date(input) == expected
+
+
+@pytest.mark.parametrize("input", [["2020-1-1"], ["10-10-10"], ["Mąka: 4,3"]])
+def test_get_date_exception(input):
+    with pytest.raises(Exception, match="No date format in first line of file"):
+        get_date(input)
+
+
+@pytest.mark.parametrize(
+    "input, expect",
+    [
+        (["mąka: 4.34", "cukier: 2.33"], does_not_raise()),
+        (["chleb pszenny: 4.3", "cukier brązowy: 2.99"], does_not_raise()),
+        ([" 4.34", "cukier: 2,33"], pytest.raises(AttributeError)),
+        (["mąka: 4.34", "cukier:"], pytest.raises(AttributeError)),
+    ],
+)
+def test_match_item_name_and_price_exception(input, expect):
+    with expect:
+        match_item_name_and_price(input)

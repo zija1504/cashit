@@ -1,4 +1,8 @@
-import os
+"""Settings for all app.
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
-SQL_PATH = dir_path + "/data/database.db"
+All general global variable placed here
+"""
+
+from peewee import SqliteDatabase
+
+dev_db = SqliteDatabase('db.db')
